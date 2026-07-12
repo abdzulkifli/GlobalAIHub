@@ -1,0 +1,75 @@
+name: Evergreen Review Reminder
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Runs on the 1st day of every month at 09:15 Malaysia time
+    # GitHub cron uses UTC, so 01:15 UTC = 09:15 MYT
+    - cron: "15 1 1 * *"
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  create-review-issue:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Create monthly evergreen review issue
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          MONTH=$(date -u +"%B %Y")
+          TITLE="Evergreen Review: Audit Intelligence Hub - $MONTH"
+
+          BODY=$(cat <<'EOF'
+          ## Evergreen Review Checklist
+
+          Please review whether the Audit Intelligence Hub needs updates.
+
+          ### 1. Standards and framework review
+          - [ ] IIA Global Internal Audit Standards
+          - [ ] ISO 19011
+          - [ ] NIST CSF
+          - [ ] NIST AI RMF
+          - [ ] ISO/IEC 42001
+          - [ ] ISSA 5000
+          - [ ] IFRS Sustainability Standards
+          - [ ] OWASP LLM Top 10
+          - [ ] EU AI Act / local AI regulation
+          - [ ] Privacy, cyber, ESG and sector rules
+
+          ### 2. Dashboard content review
+          - [ ] Audit discipline count still correct
+          - [ ] Source links still working
+          - [ ] No outdated standard labels
+          - [ ] No misleading wording
+          - [ ] Practical audit scope still sufficient
+          - [ ] Scenario planning still relevant
+          - [ ] AI / GenAI section still current
+          - [ ] Version history updated
+
+          ### 3. Technical review
+          - [ ] HTML loads correctly
+          - [ ] Search works
+          - [ ] Filters work
+          - [ ] Compare/reset works
+          - [ ] Planning generator works
+          - [ ] Scenario planner works
+          - [ ] Mobile layout still clean
+
+          ### Suggested action
+          - Update index.html if needed
+          - Update version number
+          - Add changelog note
+          - Close this issue after review
+          EOF
+          )
+
+          gh issue create \
+            --repo "$REPO" \
+            --title "$TITLE" \
+            --body "$BODY" \
+            --label "evergreen-review" || true
