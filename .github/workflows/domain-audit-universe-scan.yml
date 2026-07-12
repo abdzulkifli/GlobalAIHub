@@ -1,6 +1,9 @@
 name: Domain-to-Audit-Universe Public Signal Scan
 
 on:
+concurrency:
+  group: domain-audit-universe-scan
+  cancel-in-progress: false
   workflow_dispatch:
     inputs:
       domain:
