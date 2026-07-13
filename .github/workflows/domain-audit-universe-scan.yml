@@ -16,46 +16,93 @@ on:
 permissions:
   contents: write
 
+concurrency:
+  group: domain-audit-universe-scan
+  cancel-in-progress: false
+
 jobs:
   public-signal-scan:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Scan public pages and create JSON
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const fs = require('fs');
-            const domain = '${{ inputs.domain }}'.replace(/^https?:\/\//,'').replace(/\/$/,'');
+
+            const domain = '${{ inputs.domain }}'
+              .replace(/^https?:\/\//, '')
+              .replace(/\/$/, '');
+
             const industry = '${{ inputs.industry }}' || 'Unknown';
             const base = 'https://' + domain;
-            const paths = ['/', '/about', '/privacy', '/terms', '/security', '/trust', '/sustainability', '/esg', '/investors', '/careers', '/products', '/services', '/contact'];
+
+            const paths = [
+              '/',
+              '/about',
+              '/privacy',
+              '/terms',
+              '/security',
+              '/trust',
+              '/sustainability',
+              '/esg',
+              '/investors',
+              '/careers',
+              '/products',
+              '/services',
+              '/contact'
+            ];
+
             const keywords = {
-              privacy: ['privacy','personal data','cookie','gdpr','data protection'],
-              security: ['security','iso 27001','soc 2','trust','incident'],
-              esg: ['sustainability','esg','carbon','climate','human rights'],
-              investor: ['investor','annual report','financial statements','governance'],
-              ai: ['artificial intelligence','ai','machine learning','chatbot','automation'],
-              vendor: ['supplier','partner','procurement','outsourcing','third party'],
-              careers: ['careers','jobs','culture','people','employees'],
-              complaints: ['complaints','support','help center','customer service']
+              privacy: ['privacy', 'personal data', 'cookie', 'gdpr', 'data protection'],
+              security: ['security', 'iso 27001', 'soc 2', 'trust', 'incident'],
+              esg: ['sustainability', 'esg', 'carbon', 'climate', 'human rights'],
+              investor: ['investor', 'annual report', 'financial statements', 'governance'],
+              ai: ['artificial intelligence', 'ai', 'machine learning', 'chatbot', 'automation'],
+              vendor: ['supplier', 'partner', 'procurement', 'outsourcing', 'third party'],
+              careers: ['careers', 'jobs', 'culture', 'people', 'employees'],
+              complaints: ['complaints', 'support', 'help center', 'customer service']
             };
+
             const pages = [];
+
             for (const path of paths) {
               const url = base + path;
+
               try {
-                const res = await fetch(url, {headers: {'user-agent':'AuditUniverseBot/1.0 (+GitHub Actions; public pages only)'}});
+                const res = await fetch(url, {
+                  headers: {
+                    'user-agent': 'AuditUniverseBot/1.0 (+GitHub Actions; public pages only)'
+                  }
+                });
+
                 if (!res.ok) continue;
+
                 const html = (await res.text()).slice(0, 200000).toLowerCase();
                 const hits = {};
-                for (const [key, terms] of Object.entries(keywords)) hits[key] = terms.filter(t => html.includes(t));
-                if (Object.values(hits).some(v => v.length)) pages.push({url, status: res.status, hits});
+
+                for (const [key, terms] of Object.entries(keywords)) {
+                  hits[key] = terms.filter(t => html.includes(t));
+                }
+
+                if (Object.values(hits).some(v => v.length)) {
+                  pages.push({
+                    url,
+                    status: res.status,
+                    hits
+                  });
+                }
               } catch (e) {
                 // Ignore unreachable public pages.
               }
             }
+
             const output = {
               generated_at_utc: new Date().toISOString(),
               domain,
@@ -64,13 +111,26 @@ jobs:
               pages_scanned: pages,
               planning_note: 'Draft signal scan for audit universe planning. Validate with management and subject-matter experts before use.'
             };
-            fs.mkdirSync('data', {recursive:true});
-            fs.writeFileSync('data/domain-audit-universe.json', JSON.stringify(output, null, 2));
+
+            fs.mkdirSync('data', { recursive: true });
+            fs.writeFileSync(
+              'data/domain-audit-universe.json',
+              JSON.stringify(output, null, 2)
+            );
 
       - name: Commit JSON output
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           git add data/domain-audit-universe.json
-          git commit -m "Update domain audit universe signal scan" || echo "No changes to commit"
-          git push
+
+          if git diff --cached --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git commit -m "Update domain audit universe signal scan"
+
+          git pull --rebase origin main
+          git push origin main
