@@ -1,26 +1,8 @@
 {
-  "generated_at_utc": "2026-07-12T15:14:30.041Z",
-  "domain": "lppsa.gov.my",
-  "industry": "private",
+  "generated_at_utc": "2026-07-13T00:25:43.879Z",
+  "domain": "ecerdc.com.my",
+  "industry": "testing",
   "scan_boundary": "Public pages only. No login, exploit, port scan, hidden endpoint discovery or bypass attempts.",
-  "pages_scanned": [
-    {
-      "url": "https://lppsa.gov.my/",
-      "status": 200,
-      "hits": {
-        "privacy": [],
-        "security": [],
-        "esg": [],
-        "investor": [],
-        "ai": [
-          "ai",
-          "chatbot"
-        ],
-        "vendor": [],
-        "careers": [],
-        "complaints": []
-      }
-    }
-  ],
+  "pages_scanned": [],
   "planning_note": "Draft signal scan for audit universe planning. Validate with management and subject-matter experts before use."
 }
