@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Global Audit Intelligence Hub — Planning & Scenario Workbench Edition</title>
+<title>Global Audit Intelligence Hub — Audit Universe, Domain Generator & Planning Workbench Edition</title>
 <meta name="author" content="Abdullah Zulkifli" />
 <style>
 :root {
@@ -114,6 +114,30 @@ h1 { font-size: clamp(2.2rem, 5vw, 4.8rem); line-height: .98; letter-spacing: -.
 .section-card { background: var(--surface); border: 1px solid var(--border); border-radius: 24px; padding: 22px; box-shadow: var(--shadow); margin-bottom: 18px; backdrop-filter: blur(12px); }
 .section-card h2 { margin: 0 0 10px; font-size: 1.35rem; letter-spacing: -.04em; }
 .section-card p { color: var(--muted); line-height: 1.7; margin: 0; }
+
+.universe-hero { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(280px, .75fr); gap: 18px; align-items: stretch; }
+.universe-definition { background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 14%, var(--surface)), color-mix(in srgb, var(--accent) 10%, var(--surface))); border: 1px solid var(--border); border-radius: 24px; padding: 24px; box-shadow: var(--shadow); }
+.universe-definition h2 { margin: 0 0 10px; font-size: 1.45rem; letter-spacing: -.04em; }
+.universe-definition p { color: var(--muted); line-height: 1.7; margin: 0 0 12px; }
+.universe-kpis { display: grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap: 12px; }
+.universe-kpi { border: 1px solid var(--border); background: var(--surface); border-radius: 18px; padding: 16px; box-shadow: var(--shadow); }
+.universe-kpi span { display: block; color: var(--muted); font-size: .72rem; font-weight: 900; text-transform: uppercase; letter-spacing: .07em; }
+.universe-kpi strong { display: block; margin-top: 5px; font-size: 1.65rem; letter-spacing: -.04em; }
+.universe-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px,1fr)); gap: 14px; margin: 16px 0 20px; }
+.universe-card { --u:#1d4ed8; border: 1px solid var(--border); border-radius: 22px; background: var(--surface); padding: 18px; box-shadow: var(--shadow); position: relative; overflow: hidden; }
+.universe-card:before { content:""; position:absolute; inset:0 auto 0 0; width:5px; background:var(--u); }
+.universe-card h3 { margin: 0 0 8px; font-size: 1.05rem; letter-spacing: -.03em; }
+.universe-card p { color: var(--muted); line-height: 1.6; font-size: .88rem; margin: 0 0 12px; }
+.universe-card ul { margin: 0; padding-left: 18px; color: var(--muted); line-height: 1.55; font-size: .84rem; }
+.universe-chip-row { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; }
+.universe-chip { display: inline-flex; align-items:center; gap:6px; border:1px solid var(--border); background: var(--surface-2); color: var(--muted); border-radius: 999px; padding: 7px 10px; font-size: .76rem; font-weight: 850; max-width: 100%; }
+.universe-output .output-grid { grid-template-columns: repeat(3, minmax(0,1fr)); }
+.universe-table { width: 100%; border-collapse: collapse; }
+.universe-table th, .universe-table td { border-bottom: 1px solid var(--border); padding: 11px 12px; text-align: left; vertical-align: top; font-size: .84rem; }
+.universe-table th { color: var(--muted); text-transform: uppercase; letter-spacing: .06em; font-size: .7rem; background: var(--surface-2); }
+.universe-score { display: inline-flex; align-items: center; justify-content: center; min-width: 34px; height: 26px; border-radius: 999px; background: color-mix(in srgb, var(--primary) 13%, var(--surface-2)); color: var(--primary); font-weight: 900; }
+.universe-note { color: var(--muted); font-size: .84rem; line-height: 1.6; margin-top: 12px; }
+
 .matrix { overflow: auto; border-radius: 18px; border: 1px solid var(--border); }
 table { width: 100%; border-collapse: collapse; min-width: 760px; }
 th, td { text-align: left; border-bottom: 1px solid var(--border); padding: 12px 14px; vertical-align: top; }
@@ -257,8 +281,31 @@ ul.clean li { padding: 10px 12px; background: var(--surface-2); border: 1px soli
 .escalation-box { border:1px solid color-mix(in srgb, var(--warning) 35%, var(--border)); border-left:5px solid var(--warning); background:color-mix(in srgb, var(--warning) 8%, var(--surface-solid)); border-radius:16px; padding:13px; margin-top:12px; }
 .escalation-box h4 { margin:0 0 6px; font-size:.84rem; text-transform:uppercase; letter-spacing:.08em; }
 .escalation-box p { margin:0; }
-@media (max-width: 1100px) { .planning-control-grid, .scenario-control-grid, .plan-summary-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .plan-output .output-grid, .scenario-output .output-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .plan-phase-grid, .scenario-pathway { grid-template-columns: repeat(2, minmax(0,1fr)); } }
-@media (max-width: 560px) { .planning-control-grid, .scenario-control-grid, .plan-summary-grid, .plan-output .output-grid, .scenario-output .output-grid, .plan-phase-grid, .scenario-pathway { grid-template-columns: 1fr; } }
+
+
+/* ===== DOMAIN-TO-AUDIT-UNIVERSE GENERATOR ===== */
+.domain-hero { display: grid; grid-template-columns: minmax(0, 1.4fr) minmax(260px, .8fr); gap: 18px; align-items: stretch; }
+.domain-safe-box { border: 1px solid var(--border); background: linear-gradient(135deg, color-mix(in srgb, var(--primary) 9%, var(--surface-solid)), var(--surface-solid)); border-radius: var(--radius); padding: 18px; box-shadow: var(--shadow); }
+.domain-safe-box h3 { margin-bottom: 8px; }
+.domain-safe-box p, .domain-safe-box li { color: var(--muted); line-height: 1.65; font-size: .9rem; }
+.domain-signal-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 10px; margin-top: 12px; }
+.domain-signal { display: flex; gap: 9px; align-items: flex-start; border: 1px solid var(--border); background: var(--surface-2); border-radius: 14px; padding: 10px 11px; color: var(--text); font-size: .86rem; line-height: 1.35; cursor: pointer; }
+.domain-signal input { margin-top: 2px; }
+.domain-signal strong { display: block; font-size: .86rem; }
+.domain-signal span span { display: block; color: var(--muted); font-size: .78rem; margin-top: 3px; }
+.domain-result-card { border: 1px solid var(--border); border-left: 5px solid var(--primary); border-radius: 14px; padding: 14px; background: var(--surface-solid); }
+.domain-result-card h4 { margin-bottom: 8px; }
+.domain-mini-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 12px 0; }
+.domain-mini { border: 1px solid var(--border); background: var(--surface-2); border-radius: 12px; padding: 10px; }
+.domain-mini span { display: block; color: var(--muted); font-size: .72rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 900; }
+.domain-mini strong { display: block; margin-top: 4px; font-size: .9rem; }
+.domain-code { width: 100%; max-height: 420px; overflow: auto; white-space: pre; border: 1px solid var(--border); background: #0f172a; color: #e2e8f0; border-radius: 14px; padding: 14px; font-size: .78rem; line-height: 1.55; }
+[data-theme="dark"] .domain-code { background: #020617; color: #dbeafe; }
+.domain-note { color: var(--muted); font-size: .86rem; line-height: 1.6; margin-top: 10px; }
+@media (max-width: 900px) { .domain-hero { grid-template-columns: 1fr; } }
+
+@media (max-width: 1100px) { .planning-control-grid, .scenario-control-grid, .plan-summary-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .plan-output .output-grid, .scenario-output .output-grid, .universe-output .output-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .plan-phase-grid, .scenario-pathway { grid-template-columns: repeat(2, minmax(0,1fr)); } }
+@media (max-width: 560px) { .planning-control-grid, .scenario-control-grid, .plan-summary-grid, .plan-output .output-grid, .scenario-output .output-grid, .universe-output .output-grid, .plan-phase-grid, .scenario-pathway, .universe-hero, .universe-kpis { grid-template-columns: 1fr; } }
 
 @media (max-width: 900px) { .control-grid { grid-template-columns: repeat(2, minmax(0,1fr)); } .level-strip { grid-template-columns: repeat(2, minmax(0,1fr)); } }
 @media (max-width: 560px) { .control-grid, .evidence-control-grid, .output-grid, .level-strip { grid-template-columns: 1fr; } }
@@ -341,7 +388,7 @@ th, td { line-height: 1.45; overflow-wrap: anywhere; }
   .icon { width: 46px; height: 46px; border-radius: 15px; }
   .badges { justify-content: flex-start; }
   .card-foot { grid-template-columns: 1fr; }
-  .source-grid, .ai-grid, .evergreen-grid, .guard-grid, .workbench-grid, .heat-grid, .scenario-grid { grid-template-columns: 1fr; }
+  .source-grid, .ai-grid, .evergreen-grid, .guard-grid, .workbench-grid, .heat-grid, .scenario-grid, .universe-grid, .universe-hero, .universe-output .output-grid { grid-template-columns: 1fr; }
   .drawer { width: 100%; }
   .drawer-head { padding: 20px; }
   .drawer-title h2 { font-size: 1.25rem; }
@@ -379,7 +426,7 @@ th, td { line-height: 1.45; overflow-wrap: anywhere; }
       <div class="mark">AIH</div>
       <div>
         <div class="brand-title">Global Audit Intelligence Hub</div>
-        <div class="brand-sub">Planning & scenario workbench edition • 2026</div>
+        <div class="brand-sub">Audit universe & planning workbench edition • 2026</div>
       </div>
     </div>
     <div class="nav-actions">
@@ -397,9 +444,10 @@ th, td { line-height: 1.45; overflow-wrap: anywhere; }
       <div>
         <div class="eyebrow"><span class="dot"></span> Source-backed audit taxonomy • practical workbench controls</div>
         <h1>Global Audit Intelligence Hub</h1>
-        <p>A source-anchored global reference covering 50 audit disciplines, now upgraded with scope sufficiency checks, a comprehensive audit planning generator, scenario planning workbench, evidence library, red-flag guide, AI/cyber heatmap and evergreen quality controls.</p>
+        <p>A source-anchored global reference covering 50 audit disciplines, now upgraded with an audit universe builder, scope sufficiency checks, a comprehensive audit planning generator, scenario planning workbench, evidence library, red-flag guide, AI/cyber heatmap and evergreen quality controls.</p>
         <div style="margin-top:24px;display:flex;gap:10px;flex-wrap:wrap">
           <button class="btn primary" onclick="showTab('explorer')">Start exploring</button>
+          <button class="btn" onclick="showTab('universe')">Open audit universe</button>
           <button class="btn" onclick="showTab('workbench')">Open workbench</button>
           <button class="btn" onclick="showTab('evergreen')">Evergreen validity</button>
           <button class="btn" onclick="showTab('sources')">View source register</button>
@@ -408,8 +456,8 @@ th, td { line-height: 1.45; overflow-wrap: anywhere; }
       <aside class="hero-side">
         <h3>Document control</h3>
         <div class="meta-list">
-          <div class="meta-line"><span>Author / Owner</span><span>Abdullah Zulkifli<br/>Independent Researcher </span></div>
-          <div class="meta-line"><span>Factual check</span><span> JULY 2026 </span></div>
+          <div class="meta-line"><span>Author / Owner</span><span>Abdullah Zulkifli<br/>Independent author / audit intelligence compiler</span></div>
+          <div class="meta-line"><span>Factual check</span><span>9 July 2026 • fact-checked, tally refreshed and scope-verified</span></div>
           <div class="meta-line"><span>Review cadence</span><span>Semi-annual + event-triggered refresh</span></div>
           <div class="meta-line"><span>Evidence basis</span><span>Official standards, regulators and professional bodies</span></div>
           <div class="meta-line"><span>Status</span><span>Reference dashboard, not a certification opinion</span></div>
@@ -424,6 +472,8 @@ th, td { line-height: 1.45; overflow-wrap: anywhere; }
 <main class="shell">
   <div class="tabs">
     <button class="tab active" data-tab="explorer">Audit Explorer</button>
+    <button class="tab" data-tab="universe">Audit Universe</button>
+    <button class="tab" data-tab="domain-universe">Domain Generator</button>
     <button class="tab" data-tab="workbench">Audit Workbench</button>
     <button class="tab" data-tab="matrix">Assurance Map</button>
     <button class="tab" data-tab="lifecycle">Audit Lifecycle</button>
@@ -443,6 +493,112 @@ th, td { line-height: 1.45; overflow-wrap: anywhere; }
       <div class="filters" id="filters"></div>
     </div>
     <div class="grid" id="auditGrid"></div>
+  </section>
+
+
+  <section class="panel" id="panel-universe">
+    <div class="universe-hero">
+      <div class="universe-definition">
+        <h2>Audit universe</h2>
+        <p>The audit universe is the complete, living inventory of auditable areas that could be reviewed by internal audit or other assurance providers. It normally includes entities, processes, systems, products, programmes, locations, vendors, data assets, reports, regulations, models and major risk themes.</p>
+        <p>Use this tab to move from a list of audit disciplines into a risk-based planning view: what can be audited, who owns it, how risky it is, what assurance already exists and what should be prioritised in the annual or rolling audit plan.</p>
+        <div class="universe-chip-row">
+          <span class="universe-chip">🌐 Non-exhaustive global model</span>
+          <span class="universe-chip">🎯 Risk-based prioritisation</span>
+          <span class="universe-chip">🧩 Links risk universe to audit plan</span>
+          <span class="universe-chip">🔁 Refresh after major change</span>
+        </div>
+      </div>
+      <div class="universe-kpis">
+        <div class="universe-kpi"><span>Audit disciplines</span><strong id="universeAuditCount">50</strong></div>
+        <div class="universe-kpi"><span>Universe domains</span><strong id="universeDomainCount">10</strong></div>
+        <div class="universe-kpi"><span>Auditable unit types</span><strong id="universeUnitCount">12</strong></div>
+        <div class="universe-kpi"><span>Planning model</span><strong>Risk-based</strong></div>
+      </div>
+    </div>
+
+    <div class="section-card" style="margin-top:18px">
+      <h2>Audit universe domains</h2>
+      <p>These domains help organise auditable areas before selecting individual engagements. They do not replace the 50 audit disciplines; they group the broader organisation landscape so planning coverage is easier to discuss with management and the board.</p>
+    </div>
+    <div class="universe-grid" id="auditUniverseDomains"></div>
+
+    <div class="section-card">
+      <h2>Audit universe builder</h2>
+      <p>Select an organisation profile, planning priority and audit capacity. The builder creates a practical audit-universe view with suggested priority domains, candidate audit disciplines, scoring factors, register fields and refresh triggers.</p>
+      <div class="control-grid planning-control-grid">
+        <div class="control-field"><label for="universeOrg">Organisation profile</label><select id="universeOrg"><option>General organisation</option><option>Financial services</option><option>Public sector</option><option>Healthcare</option><option>Technology / SaaS</option><option>Manufacturing / supply chain</option><option>Non-profit / donor-funded</option><option>Energy / utilities</option><option>ESG-intensive organisation</option></select></div>
+        <div class="control-field"><label for="universePriority">Planning priority</label><select id="universePriority"><option>Balanced risk-based coverage</option><option>Regulatory and compliance pressure</option><option>Digital, cyber and AI transformation</option><option>Financial control and reporting reliability</option><option>Operational resilience and service quality</option><option>Third-party and supply-chain exposure</option><option>ESG, safety and social impact</option></select></div>
+        <div class="control-field"><label for="universeCapacity">Annual audit capacity</label><select id="universeCapacity"><option>8 focused engagements</option><option>12 standard engagements</option><option>18 broad engagements</option><option>24 rolling / continuous reviews</option></select></div>
+        <div class="control-field"><label for="universeRefresh">Refresh trigger</label><select id="universeRefresh"><option>Semi-annual refresh</option><option>New strategy / restructuring</option><option>Major incident or loss event</option><option>Regulatory or standard change</option><option>New system, AI model or outsourcing</option><option>Board / audit committee request</option></select></div>
+      </div>
+      <div class="small-action-row"><button class="btn primary" id="generateUniverse" type="button">Generate audit universe view</button><button class="btn" id="copyUniverse" type="button">Copy universe view</button></div>
+      <div class="output-box universe-output" id="universeOutput"></div>
+    </div>
+
+    <div class="section-card">
+      <h2>Audit universe register template</h2>
+      <p>Use this as a starter structure if you convert the Hub into a formal register. The register should be updated at least semi-annually and whenever the organisation changes materially.</p>
+      <div class="matrix"><table class="universe-table"><thead><tr><th>Field</th><th>Purpose</th><th>Example</th></tr></thead><tbody id="universeRegisterRows"></tbody></table></div>
+      <p class="universe-note">Tip: the audit universe should be wider than the annual audit plan. The annual plan is the prioritised subset of the universe that can be covered with available resources and mandate.</p>
+    </div>
+
+    <div class="section-card">
+      <h2>Risk scoring model</h2>
+      <p>Use these factors to rank auditable units consistently. Scoring should be transparent, documented and revisited when risk velocity changes.</p>
+      <div class="matrix"><table class="universe-table"><thead><tr><th>Risk factor</th><th>What to assess</th><th>Simple score</th></tr></thead><tbody id="universeScoringRows"></tbody></table></div>
+    </div>
+  </section>
+
+
+  <section class="panel" id="panel-domain-universe">
+    <div class="domain-hero">
+      <div class="section-card">
+        <h2>Domain-to-Audit-Universe Generator</h2>
+        <p>Generate a preliminary audit universe from a company domain and publicly observable business signals. This module is designed for planning, scoping and discussion — not for security testing, certification or a formal audit opinion.</p>
+        <div class="universe-chip-row">
+          <span class="universe-chip">🌐 Public-signal based</span>
+          <span class="universe-chip">🧭 Risk-based audit mapping</span>
+          <span class="universe-chip">🛡️ Non-intrusive by design</span>
+          <span class="universe-chip">✅ Human review required</span>
+        </div>
+      </div>
+      <aside class="domain-safe-box">
+        <h3>Safe operating boundary</h3>
+        <ul class="clean">
+          <li>Use public pages only: homepage, about, privacy, terms, ESG, investor, security/trust, careers and product pages.</li>
+          <li>Do not perform port scanning, login testing, password testing, exploit testing or hidden endpoint discovery.</li>
+          <li>Treat output as a draft audit universe that must be validated with management, risk, compliance, technology and process owners.</li>
+        </ul>
+      </aside>
+    </div>
+
+    <div class="section-card">
+      <h2>Manual profile mode</h2>
+      <p>This works directly in the static HTML Hub. Enter a company domain and select public signals that appear on the organisation’s website. The Hub will map those signals into likely audit universe domains and candidate audits.</p>
+      <div class="control-grid planning-control-grid">
+        <div class="control-field"><label for="domainInput">Company domain</label><input id="domainInput" placeholder="e.g., example.com" /></div>
+        <div class="control-field"><label for="domainIndustry">Detected / selected industry</label><select id="domainIndustry"><option>General organisation</option><option>Financial services</option><option>Technology / SaaS</option><option>Healthcare</option><option>Manufacturing / supply chain</option><option>Energy / utilities</option><option>Public sector</option><option>Education</option><option>Non-profit / donor-funded</option><option>Retail / e-commerce</option><option>ESG-intensive organisation</option></select></div>
+        <div class="control-field"><label for="domainCountry">Primary jurisdiction</label><input id="domainCountry" placeholder="Global / EU / US / Malaysia / UK / etc." /></div>
+        <div class="control-field"><label for="domainSize">Organisation size</label><select id="domainSize"><option>Unknown</option><option>Startup / small</option><option>Mid-sized</option><option>Large enterprise</option><option>Regulated enterprise</option><option>Public-interest entity</option></select></div>
+        <div class="control-field"><label for="domainExposure">Public exposure</label><select id="domainExposure"><option>Moderate public-facing exposure</option><option>High customer-facing digital exposure</option><option>Regulated public reporting</option><option>Critical infrastructure / essential service</option><option>Mostly internal / B2B operations</option></select></div>
+        <div class="control-field"><label for="domainCapacity">Suggested plan size</label><select id="domainCapacity"><option>8 focused engagements</option><option selected>12 standard engagements</option><option>18 broad engagements</option><option>24 rolling / continuous reviews</option></select></div>
+      </div>
+
+      <h3 style="margin-top:18px">Public website signals</h3>
+      <p class="domain-note">Select what you can see from public pages. More signals produce a stronger audit universe, but confidence still depends on source quality and internal validation.</p>
+      <div class="domain-signal-grid" id="domainSignalGrid"></div>
+      <div class="small-action-row"><button class="btn primary" id="generateDomainUniverse" type="button">Generate domain audit universe</button><button class="btn" id="copyDomainUniverse" type="button">Copy output</button><button class="btn" id="downloadDomainUniverseJson" type="button">Download JSON</button></div>
+      <div class="output-box" id="domainUniverseOutput"></div>
+    </div>
+
+    <div class="section-card">
+      <h2>Public domain scan mode for GitHub</h2>
+      <p>For a real public-page scan, use a GitHub Action or backend service. The Action below is a safe starter template: it fetches selected public pages, looks for planning signals, creates <code>data/domain-audit-universe.json</code>, and commits it for review. The Hub can then use that JSON as an input source.</p>
+      <div class="small-action-row"><button class="btn" id="copyDomainWorkflow" type="button">Copy GitHub Action workflow</button><button class="btn" id="copyDomainSchema" type="button">Copy JSON schema</button></div>
+      <pre class="domain-code" id="domainWorkflowCode"></pre>
+      <p class="domain-note"><strong>Best practice:</strong> run the Action manually, review the JSON, update the Hub, then commit with a changelog note. Do not automatically publish external scan output without human review.</p>
+    </div>
   </section>
 
 
@@ -685,7 +841,7 @@ th, td { line-height: 1.45; overflow-wrap: anywhere; }
 
 <footer class="shell footer">
   <strong>Prepared by Abdullah Zulkifli.</strong><br/>
-  This evergreen dashboard is a planning and reference artefact. It supports audit awareness, assurance mapping and governance discussion, but it is not an audit opinion, legal advice, certification, or compliance determination. Users should verify local rules and current source versions before formal reliance.
+  This evergreen dashboard is an audit universe, planning and reference artefact. It supports audit awareness, assurance mapping and governance discussion, but it is not an audit opinion, legal advice, certification, or compliance determination. Users should verify local rules and current source versions before formal reliance.
 </footer>
 
 <script>
@@ -736,6 +892,70 @@ const safeStorage = {
 const state = { filter: 'All', search: '', current: null, compare: [], theme: safeStorage.get('aih-theme', 'light') };
 document.documentElement.setAttribute('data-theme', state.theme);
 
+
+
+const auditUniverseDomains = [
+  {title:'Governance, strategy and risk', color:'#2563eb', text:'Board governance, strategy execution, enterprise risk management, policy architecture and delegated authority.', units:['Board and committee governance','Risk appetite and ERM','Strategy execution','Policy management']},
+  {title:'Finance, treasury and reporting', color:'#1e40af', text:'Financial reporting, budgeting, revenue, expenditure, tax, treasury, liquidity, capital expenditure and financial controls.', units:['Financial close','Revenue and receivables','Procure-to-pay','Treasury and tax']},
+  {title:'Operations, service and customer', color:'#7c3aed', text:'Core operations, customer journeys, service quality, complaints, performance, inventory, asset management and product conformity.', units:['End-to-end processes','Service delivery','Complaints handling','Inventory and assets']},
+  {title:'Technology, data and AI', color:'#4f46e5', text:'Applications, infrastructure, cloud, data governance, AI systems, software development, identity, cyber and resilience controls.', units:['Critical systems','Data assets','AI models and agents','Cloud and SaaS services']},
+  {title:'Compliance, legal and conduct', color:'#16a34a', text:'Regulatory obligations, legal compliance, privacy, AML/CFT, sanctions, ethics, conduct, anti-bribery and policy adherence.', units:['Obligation register','Privacy and data protection','AML/sanctions','Ethics and anti-bribery']},
+  {title:'Third party and supply chain', color:'#475569', text:'Vendors, outsourced services, suppliers, contracts, SLAs, concentration risk, supplier assurance and exit readiness.', units:['Critical vendors','Outsourced services','Supplier onboarding','Contract lifecycle']},
+  {title:'People, culture and workplace', color:'#db2777', text:'Human capital, payroll, workforce planning, culture, health, safety, training, conduct and social compliance.', units:['Payroll and HR controls','Culture and ethics','Training and capability','Workplace safety']},
+  {title:'Projects, change and transformation', color:'#0891b2', text:'Major programmes, system implementations, transformation, change management, benefits realisation and project governance.', units:['Programme governance','Business case controls','Change readiness','Benefits tracking']},
+  {title:'Sustainability, ESG and public impact', color:'#0d9488', text:'Sustainability reporting, climate data, carbon, energy, environmental controls, human rights and public-value outcomes.', units:['ESG disclosures','GHG and carbon data','Energy and environment','Human rights impacts']},
+  {title:'Sector-specific and regulated activity', color:'#ca8a04', text:'Industry-specific areas such as healthcare, food safety, grants, credit risk, public funding, critical infrastructure or regulated products.', units:['Healthcare quality','Food safety','Public funding','Credit and lending']}
+];
+
+const auditUniverseUnitTypes = ['Entity','Function','Business process','Product or service','Location','System or application','Data asset or report','Third party or supplier','Project or programme','Regulatory obligation','AI model / algorithm','Major risk theme'];
+
+const auditUniverseRegisterFields = [
+  ['Auditable unit ID','Unique reference for each auditable area','AU-TECH-001'],
+  ['Auditable unit name','Clear name of the process, system, entity, product, vendor or risk theme','Privileged Access Management'],
+  ['Universe domain','Domain grouping used for board and management coverage discussion','Technology, data and AI'],
+  ['Owner','Accountable management owner for risk, controls and evidence','CISO / Head of Infrastructure'],
+  ['Key risks','Main risks that justify possible audit coverage','Unauthorized access, fraud, data exposure'],
+  ['Key controls','Main preventive, detective and corrective controls','Access recertification, MFA, admin logging'],
+  ['Systems / data population','Source applications, reports, data sets and populations to test','IAM tool, HR feed, admin logs'],
+  ['Regulatory / framework criteria','Standards, laws, policies or internal criteria used for assessment','NIST CSF, ISO 27001, policy'],
+  ['Inherent risk rating','Risk before considering current control effectiveness','High'],
+  ['Control confidence','Known control maturity or confidence based on evidence and prior work','Moderate'],
+  ['Assurance coverage','Who already reviews it and how recently','Internal audit 2024; compliance monitoring quarterly'],
+  ['Next review priority','Recommended timing or cadence for audit plan consideration','Next 12 months']
+];
+
+const auditUniverseScoringFactors = [
+  ['Strategic relevance','Connection to objectives, public value, customer trust, critical services or board priorities','1–5'],
+  ['Financial / operational impact','Potential loss, disruption, inefficiency, misstatement or service failure','1–5'],
+  ['Regulatory exposure','Law, regulator, contractual or certification requirement pressure','1–5'],
+  ['Change and complexity','Recent transformation, new system, AI adoption, restructuring or process complexity','1–5'],
+  ['Technology and data dependency','Reliance on systems, data quality, cyber resilience, automation or third parties','1–5'],
+  ['Incident and issue history','Prior findings, breaches, losses, complaints, downtime or recurring exceptions','1–5'],
+  ['Control confidence','Lower confidence increases audit priority; strong evidence may reduce urgency','Reverse 1–5'],
+  ['Time since last assurance','Longer period since independent review increases priority','1–5']
+];
+
+const universeProfileMap = {
+  'Financial services': ['Treasury, liquidity and market risk audit','Credit risk / lending audit','AML/CFT and sanctions audit','External financial statement audit','IT General Controls (ITGC) audit','Cybersecurity audit','Model risk audit','Privacy audit'],
+  'Public sector': ['Internal audit','Compliance & Regulatory Audit','Operational / Process Audit','Procurement and contracting audit','Grants, donor and public funding compliance audit','Project / programme governance audit','Public Sector / Value-for-Money Audit','Cybersecurity audit'],
+  'Healthcare': ['Healthcare Quality & Clinical Governance Audit','Privacy audit','Food Safety Management Audit','Quality Management System Audit','Cybersecurity audit','Third-Party / Vendor Risk Audit','Human capital / payroll audit','Business Continuity & Resilience Audit'],
+  'Technology / SaaS': ['Cybersecurity audit','Cloud & SaaS Audit','Software development and DevSecOps audit','AI Governance & Model Risk Audit','Privacy audit','IT General Controls (ITGC) audit','Identity & Privileged Access Management Audit','Third-Party / Vendor Risk Audit'],
+  'Manufacturing / supply chain': ['Operational / Process Audit','Procurement and contracting audit','Inventory and warehouse audit','Quality Management System Audit','Environmental Management Audit','Occupational Health & Safety Audit','Product safety and conformity audit','Third-Party / Vendor Risk Audit'],
+  'Non-profit / donor-funded': ['Grants, donor and public funding compliance audit','Procurement and contracting audit','External Financial Statement Audit','Compliance & Regulatory Audit','Human capital / payroll audit','Third-Party / Vendor Risk Audit','Records and information management audit','Operational / Process Audit'],
+  'Energy / utilities': ['Energy & Carbon Management Audit','Environmental Management Audit','Occupational Health & Safety Audit','Asset management audit','Cybersecurity audit','Business Continuity & Resilience Audit','Third-Party / Vendor Risk Audit','Compliance & Regulatory Audit'],
+  'ESG-intensive organisation': ['Sustainability / ESG Assurance','Environmental Management Audit','Energy & Carbon Management Audit','Human Rights & Social Compliance Audit','Occupational Health & Safety Audit','Third-Party / Vendor Risk Audit','Compliance & Regulatory Audit','Data Governance & Analytics Audit'],
+  'General organisation': ['Internal audit','Compliance & Regulatory Audit','Operational / Process Audit','External Financial Statement Audit','IT General Controls (ITGC) audit','Cybersecurity audit','Procurement and contracting audit','Third-Party / Vendor Risk Audit']
+};
+
+const universePriorityMap = {
+  'Balanced risk-based coverage': ['Internal audit','Compliance & Regulatory Audit','Operational / Process Audit','Cybersecurity audit','IT General Controls (ITGC) audit','Procurement and contracting audit','Third-Party / Vendor Risk Audit','External Financial Statement Audit'],
+  'Regulatory and compliance pressure': ['Compliance & Regulatory Audit','Privacy audit','AML/CFT and sanctions audit','Anti-Bribery & Corruption Audit','Records and information management audit','Sustainability / ESG Assurance','Cybersecurity audit','Tax compliance audit'],
+  'Digital, cyber and AI transformation': ['Cybersecurity audit','AI Governance & Model Risk Audit','Cloud & SaaS Audit','Software development and DevSecOps audit','IT General Controls (ITGC) audit','Identity & Privileged Access Management Audit','Data Governance & Analytics Audit','Business Continuity & Resilience Audit'],
+  'Financial control and reporting reliability': ['External financial statement audit','External Financial Statement Audit','Revenue assurance / billing audit','Procure-to-pay / accounts payable audit','Order-to-cash / accounts receivable audit','Tax compliance audit','Treasury, liquidity and market risk audit','IT General Controls (ITGC) audit'],
+  'Operational resilience and service quality': ['Operational / Process Audit','Business Continuity & Resilience Audit','Customer experience and complaints handling audit','Quality Management System Audit','Project / programme governance audit','Asset management audit','Healthcare Quality & Clinical Governance Audit','Physical security and facilities audit'],
+  'Third-party and supply-chain exposure': ['Third-Party / Vendor Risk Audit','Procurement and contracting audit','Third-Party / Vendor Risk Audit','Human Rights & Social Compliance Audit','Food Safety Management Audit','Product safety and conformity audit','Cloud & SaaS Audit','Business Continuity & Resilience Audit'],
+  'ESG, safety and social impact': ['Sustainability / ESG Assurance','Environmental Management Audit','Energy & Carbon Management Audit','Occupational Health & Safety Audit','Human Rights & Social Compliance Audit','Culture, conduct and ethics audit','Quality Management System Audit','Third-Party / Vendor Risk Audit']
+};
 
 const userJourneys = [
   {title:'Beginner learning path', text:'Start with the explorer, open an audit card, then review scope, testing, evidence and red flags. Use source anchors to understand which standards support the discipline.'},
@@ -846,6 +1066,7 @@ const qaipControls = [
   {title:'Continuous improvement', text:'Turn quality findings into methodology updates, training, templates, coaching and better audit committee reporting.'}
 ];
 const changeLog = [
+  {version:'v5.3', date:'12 July 2026', change:'Added Domain-to-Audit-Universe Generator with manual public-signal profiling, safe scan boundary, JSON export and GitHub Action workflow template for public-page signal scanning.', next:'Connect reviewed domain scan JSON into the published Hub and refine signal weighting using real organisation examples.'},
   {version:'v5.2', date:'9 July 2026', change:'Rechecked taxonomy tally, source mapping and current reference labels; refreshed ISO 19011 to 2026, ISO 55001 to 2024, ISO 37001 to 2025, ISO 14001 to 2026 and ISO 9001 source link.', next:'Continue semi-annual source refresh and event-triggered updates for AI, cyber, sustainability and ISO revisions.'},
   {version:'v5.1', date:'9 July 2026', change:'Expanded the audit planning generator into a comprehensive planning workbench and added scenario planning for incidents, regulatory change, cyber, AI, fraud, vendor, ESG, project, safety, data migration and economic stress situations.', next:'Pilot with real audit planning examples and refine field labels.'},
   {version:'v5.0', date:'9 July 2026', change:'Added practical workbench, audit planning generator, evidence library, red-flag guide, assurance-level explainer, jurisdiction toggle, AI/cyber heatmap, GenAI scenarios, QAIP layer and changelog.', next:'User testing, wording review and source refresh check.'},
@@ -854,6 +1075,129 @@ const changeLog = [
   {version:'v2.0', date:'9 July 2026', change:'Added AI Audit Toolkit and comparison reset function.', next:'Expand AI scenarios and practical control testing examples.'},
   {version:'v1.0', date:'9 July 2026', change:'Converted the original audit explorer into a global, source-backed dashboard.', next:'Maintain author control and avoid local-only branding.'}
 ];
+
+
+const domainSignalDefinitions = [
+  {id:'privacy', label:'Privacy / data protection notice', hint:'Personal data, consent, retention, breach notification, cross-border transfer', audits:['Privacy & Data Protection Audit','Records & Information Management Audit','Cybersecurity Audit']},
+  {id:'terms', label:'Terms, legal or customer contract pages', hint:'Customer obligations, disclaimers, complaints, refunds, regulatory commitments', audits:['Compliance & Regulatory Audit','Customer Experience & Complaints Handling Audit','Contract / Procurement Audit']},
+  {id:'security', label:'Security, trust or compliance page', hint:'Security posture, certifications, cloud assurance, incident response claims', audits:['Cybersecurity Audit','Information Security Management System Audit','Cloud & SaaS Audit','Third-Party / Vendor Risk Audit']},
+  {id:'investor', label:'Investor, annual report or governance page', hint:'Financial reporting, risk factors, governance, treasury, strategy, ESG', audits:['External Financial Statement Audit','Enterprise Risk Management Audit','Treasury, Liquidity & Market Risk Audit','Sustainability / ESG Assurance']},
+  {id:'esg', label:'ESG, sustainability or impact page', hint:'Climate, social impact, human rights, carbon, sustainability reporting', audits:['Sustainability / ESG Assurance','Environmental Management Audit','Energy & Carbon Management Audit','Human Rights & Social Compliance Audit']},
+  {id:'careers', label:'Careers or people page', hint:'Hiring, culture, payroll, workforce, health and safety, conduct', audits:['Human Capital / Payroll Audit','Culture, Conduct & Ethics Audit','Occupational Health & Safety Audit']},
+  {id:'product', label:'Product, service or platform pages', hint:'Revenue model, customer journey, product safety, quality, billing, service delivery', audits:['Operational Audit','Revenue Assurance / Billing Audit','Customer Experience & Complaints Handling Audit','Quality Management System Audit']},
+  {id:'apps', label:'Mobile app, portal, API or digital account', hint:'Identity, access, cyber, privacy, resilience and software development controls', audits:['Identity & Privileged Access Management Audit','Software Development & DevSecOps Audit','Cybersecurity Audit','Cloud & SaaS Audit']},
+  {id:'ai', label:'AI, automation, chatbot or data science claims', hint:'AI governance, model risk, fairness, explainability, monitoring, human oversight', audits:['AI Governance & Model Risk Audit','Model Risk Audit','Privacy & Data Protection Audit','Software Development & DevSecOps Audit']},
+  {id:'vendors', label:'Supplier, procurement or partner pages', hint:'Third parties, outsourcing, supplier conduct, procurement, supply-chain resilience', audits:['Third-Party / Vendor Risk Audit','Procurement & Contracting Audit','Human Rights & Social Compliance Audit','Business Continuity / Resilience Audit']},
+  {id:'locations', label:'Branches, sites, plants or facilities', hint:'Physical operations, facilities, safety, fixed assets, inventory and continuity', audits:['Physical Security & Facilities Audit','Inventory & Warehouse Audit','Fixed Asset & Capital Expenditure Audit','Occupational Health & Safety Audit']},
+  {id:'regulated', label:'Licensing, regulated service or public-interest activity', hint:'Regulatory supervision, conduct risk, compliance monitoring and reporting', audits:['Compliance & Regulatory Audit','AML/CFT & Sanctions Audit','Enterprise Risk Management Audit','Internal Audit']},
+  {id:'funding', label:'Donor, grants, public funding or subsidies', hint:'Restricted funding, eligibility, reporting, impact claims and compliance', audits:['Grants, Donor & Public Funding Compliance Audit','External Financial Statement Audit','Sustainability / ESG Assurance']},
+  {id:'support', label:'Help centre, complaints or service support', hint:'Complaints handling, customer outcomes, service levels and conduct', audits:['Customer Experience & Complaints Handling Audit','Operational Audit','Compliance & Regulatory Audit']}
+];
+const domainIndustryAuditMap = {
+  'General organisation':['Internal Audit','Enterprise Risk Management Audit','Compliance & Regulatory Audit','Cybersecurity Audit','Privacy & Data Protection Audit','Third-Party / Vendor Risk Audit','Operational Audit','Business Continuity / Resilience Audit'],
+  'Financial services':['External Financial Statement Audit','Compliance & Regulatory Audit','AML/CFT & Sanctions Audit','Credit Risk / Lending Audit','Treasury, Liquidity & Market Risk Audit','Model Risk Audit','Cybersecurity Audit','Privacy & Data Protection Audit','Third-Party / Vendor Risk Audit','Customer Experience & Complaints Handling Audit'],
+  'Technology / SaaS':['Cybersecurity Audit','Cloud & SaaS Audit','Software Development & DevSecOps Audit','Information Security Management System Audit','AI Governance & Model Risk Audit','Privacy & Data Protection Audit','Third-Party / Vendor Risk Audit','Business Continuity / Resilience Audit'],
+  'Healthcare':['Healthcare Quality & Clinical Governance Audit','Privacy & Data Protection Audit','Cybersecurity Audit','Quality Management System Audit','Compliance & Regulatory Audit','Occupational Health & Safety Audit','Third-Party / Vendor Risk Audit'],
+  'Manufacturing / supply chain':['Operational Audit','Quality Management System Audit','Product Safety & Conformity Audit','Inventory & Warehouse Audit','Procurement & Contracting Audit','Occupational Health & Safety Audit','Environmental Management Audit','Business Continuity / Resilience Audit'],
+  'Energy / utilities':['Business Continuity / Resilience Audit','Cybersecurity Audit','Environmental Management Audit','Energy & Carbon Management Audit','Asset Management Audit','Occupational Health & Safety Audit','Compliance & Regulatory Audit','Third-Party / Vendor Risk Audit'],
+  'Public sector':['Internal Audit','Compliance & Regulatory Audit','Grants, Donor & Public Funding Compliance Audit','Procurement & Contracting Audit','Project / Programme Governance Audit','Cybersecurity Audit','Records & Information Management Audit','Customer Experience & Complaints Handling Audit'],
+  'Education':['Compliance & Regulatory Audit','Privacy & Data Protection Audit','Cybersecurity Audit','Human Capital / Payroll Audit','Procurement & Contracting Audit','Grants, Donor & Public Funding Compliance Audit','Accessibility & Digital Inclusion Audit'],
+  'Non-profit / donor-funded':['Grants, Donor & Public Funding Compliance Audit','External Financial Statement Audit','Procurement & Contracting Audit','Sustainability / ESG Assurance','Human Rights & Social Compliance Audit','Compliance & Regulatory Audit'],
+  'Retail / e-commerce':['Revenue Assurance / Billing Audit','Order-to-Cash / Accounts Receivable Audit','Customer Experience & Complaints Handling Audit','Privacy & Data Protection Audit','Cybersecurity Audit','Inventory & Warehouse Audit','Third-Party / Vendor Risk Audit'],
+  'ESG-intensive organisation':['Sustainability / ESG Assurance','Environmental Management Audit','Energy & Carbon Management Audit','Human Rights & Social Compliance Audit','Occupational Health & Safety Audit','Third-Party / Vendor Risk Audit','Compliance & Regulatory Audit']
+};
+const domainWorkflowTemplate = `name: Domain-to-Audit-Universe Public Signal Scan
+
+on:
+  workflow_dispatch:
+    inputs:
+      domain:
+        description: "Company domain, for example example.com"
+        required: true
+        type: string
+      industry:
+        description: "Optional industry label"
+        required: false
+        default: "Unknown"
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  public-signal-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Scan public pages and create JSON
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const domain = '${'${{ inputs.domain }}'}'.replace(/^https?:\/\//,'').replace(/\/$/,'');
+            const industry = '${'${{ inputs.industry }}'}' || 'Unknown';
+            const base = 'https://' + domain;
+            const paths = ['/', '/about', '/privacy', '/terms', '/security', '/trust', '/sustainability', '/esg', '/investors', '/careers', '/products', '/services', '/contact'];
+            const keywords = {
+              privacy: ['privacy','personal data','cookie','gdpr','data protection'],
+              security: ['security','iso 27001','soc 2','trust','incident'],
+              esg: ['sustainability','esg','carbon','climate','human rights'],
+              investor: ['investor','annual report','financial statements','governance'],
+              ai: ['artificial intelligence','ai','machine learning','chatbot','automation'],
+              vendor: ['supplier','partner','procurement','outsourcing','third party'],
+              careers: ['careers','jobs','culture','people','employees'],
+              complaints: ['complaints','support','help center','customer service']
+            };
+            const pages = [];
+            for (const path of paths) {
+              const url = base + path;
+              try {
+                const res = await fetch(url, {headers: {'user-agent':'AuditUniverseBot/1.0 (+GitHub Actions; public pages only)'}});
+                if (!res.ok) continue;
+                const html = (await res.text()).slice(0, 200000).toLowerCase();
+                const hits = {};
+                for (const [key, terms] of Object.entries(keywords)) hits[key] = terms.filter(t => html.includes(t));
+                if (Object.values(hits).some(v => v.length)) pages.push({url, status: res.status, hits});
+              } catch (e) { /* ignore unreachable public pages */ }
+            }
+            const output = {
+              generated_at_utc: new Date().toISOString(),
+              domain,
+              industry,
+              scan_boundary: 'Public pages only. No login, exploit, port scan, hidden endpoint discovery or bypass attempts.',
+              pages_scanned: pages,
+              planning_note: 'Draft signal scan for audit universe planning. Validate with management and subject-matter experts before use.'
+            };
+            fs.mkdirSync('data', {recursive:true});
+            fs.writeFileSync('data/domain-audit-universe.json', JSON.stringify(output, null, 2));
+
+      - name: Commit JSON output
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/domain-audit-universe.json
+          git commit -m "Update domain audit universe signal scan" || echo "No changes to commit"
+          git push`;
+const domainJsonSchema = `{
+  "generated_at_utc": "2026-07-12T00:00:00.000Z",
+  "domain": "example.com",
+  "industry": "Technology / SaaS",
+  "scan_boundary": "Public pages only. No intrusive testing.",
+  "pages_scanned": [
+    {
+      "url": "https://example.com/privacy",
+      "status": 200,
+      "hits": {
+        "privacy": ["privacy", "personal data"],
+        "security": [],
+        "esg": []
+      }
+    }
+  ],
+  "suggested_use": "Use as a public-signal input for the Domain-to-Audit-Universe Generator. Validate internally before publishing or relying on it."
+}`;
 
 function $(id) { return document.getElementById(id); }
 function esc(s) { return String(s ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c])); }
@@ -980,6 +1324,94 @@ function bindAutoUpdate(ids, fn) {
     }
   });
 }
+
+function normalizeTitle(t) { return String(t).toLowerCase().replace(/&/g,'and').replace(/[^a-z0-9]+/g,' ').trim(); }
+function findAuditByLooseTitle(title) {
+  const needle = normalizeTitle(title);
+  return audits.find(a => normalizeTitle(a.title) === needle) || audits.find(a => normalizeTitle(a.title).includes(needle) || needle.includes(normalizeTitle(a.title).replace(' audit','')));
+}
+function universeCandidateAudits(org, priority, capacityText) {
+  const base = [...(universeProfileMap[org] || universeProfileMap['General organisation']), ...(universePriorityMap[priority] || universePriorityMap['Balanced risk-based coverage'])];
+  const seen = new Set();
+  let selected = [];
+  base.forEach(name => {
+    const a = findAuditByLooseTitle(name);
+    if (a && !seen.has(a.id)) { seen.add(a.id); selected.push(a); }
+  });
+  // Fill with high-relevance audits if the profile mapping is narrower than capacity.
+  audits.filter(a => /High/i.test(a.relevance)).forEach(a => { if (!seen.has(a.id)) { seen.add(a.id); selected.push(a); } });
+  const cap = parseInt(capacityText, 10) || 12;
+  return selected.slice(0, cap);
+}
+function renderAuditUniverse() {
+  $('universeAuditCount').textContent = audits.length;
+  $('universeDomainCount').textContent = auditUniverseDomains.length;
+  $('universeUnitCount').textContent = auditUniverseUnitTypes.length;
+  const domainBox = $('auditUniverseDomains');
+  if (domainBox && !domainBox.dataset.rendered) {
+    domainBox.innerHTML = auditUniverseDomains.map(d => `<div class="universe-card" style="--u:${d.color}"><h3>${esc(d.title)}</h3><p>${esc(d.text)}</p><ul>${d.units.map(u=>`<li>${esc(u)}</li>`).join('')}</ul></div>`).join('');
+    domainBox.dataset.rendered = '1';
+  }
+  const register = $('universeRegisterRows');
+  if (register && !register.dataset.rendered) {
+    register.innerHTML = auditUniverseRegisterFields.map(r => `<tr><td><strong>${esc(r[0])}</strong></td><td>${esc(r[1])}</td><td>${esc(r[2])}</td></tr>`).join('');
+    register.dataset.rendered = '1';
+  }
+  const scoring = $('universeScoringRows');
+  if (scoring && !scoring.dataset.rendered) {
+    scoring.innerHTML = auditUniverseScoringFactors.map((r,i) => `<tr><td><strong>${esc(r[0])}</strong></td><td>${esc(r[1])}</td><td><span class="universe-score">${esc(r[2])}</span></td></tr>`).join('');
+    scoring.dataset.rendered = '1';
+  }
+  ['universeOrg','universePriority','universeCapacity','universeRefresh'].forEach(id => {
+    const el = $(id);
+    if (el && !el.dataset.bound) { el.addEventListener('change', generateAuditUniverse); el.dataset.bound = '1'; }
+  });
+  const gen = $('generateUniverse');
+  if (gen && !gen.dataset.bound) { gen.addEventListener('click', generateAuditUniverse); gen.dataset.bound = '1'; }
+  const copy = $('copyUniverse');
+  if (copy && !copy.dataset.bound) { copy.addEventListener('click', copyUniverseOutput); copy.dataset.bound = '1'; }
+  generateAuditUniverse();
+}
+function generateAuditUniverse() {
+  const org = $('universeOrg')?.value || 'General organisation';
+  const priority = $('universePriority')?.value || 'Balanced risk-based coverage';
+  const capacity = $('universeCapacity')?.value || '12 standard engagements';
+  const refresh = $('universeRefresh')?.value || 'Semi-annual refresh';
+  const selected = universeCandidateAudits(org, priority, capacity);
+  const domainCounts = {};
+  selected.forEach(a => { domainCounts[a.category] = (domainCounts[a.category] || 0) + 1; });
+  const topDomains = Object.entries(domainCounts).sort((a,b)=>b[1]-a[1]).slice(0,5);
+  const cadence = selected.map((a, idx) => {
+    const quarter = idx < 3 ? 'Q1' : idx < 6 ? 'Q2' : idx < 9 ? 'Q3' : 'Q4';
+    const basis = /High/i.test(a.relevance) ? 'High relevance / key control dependency' : 'Risk-based coverage';
+    return `<tr><td>${quarter}</td><td>${a.emoji} <strong>${esc(a.title)}</strong></td><td>${esc(a.category)}</td><td>${esc(basis)}</td></tr>`;
+  }).join('');
+  const html = `<h3>🌐 Draft audit universe view — ${esc(org)}</h3>
+    <div class="plan-summary-grid">
+      <div class="plan-summary-item"><span>Planning priority</span><strong>${esc(priority)}</strong></div>
+      <div class="plan-summary-item"><span>Capacity</span><strong>${esc(capacity)}</strong></div>
+      <div class="plan-summary-item"><span>Refresh trigger</span><strong>${esc(refresh)}</strong></div>
+      <div class="plan-summary-item"><span>Candidate audits</span><strong>${selected.length}</strong></div>
+    </div>
+    <div class="output-grid">
+      <div class="output-section"><h4>What to include in the universe</h4><ul>${auditUniverseUnitTypes.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>
+      <div class="output-section"><h4>Priority domains from current selection</h4><ul>${topDomains.map(([k,v])=>`<li>${esc(k)} — ${v} candidate audit(s)</li>`).join('')}</ul></div>
+      <div class="output-section"><h4>Minimum register fields</h4><ul>${auditUniverseRegisterFields.slice(0,8).map(x=>`<li>${esc(x[0])}</li>`).join('')}</ul></div>
+      <div class="output-section"><h4>Scoring lens</h4><ul>${auditUniverseScoringFactors.slice(0,6).map(x=>`<li>${esc(x[0])}</li>`).join('')}</ul></div>
+      <div class="output-section"><h4>Refresh triggers</h4><ul><li>${esc(refresh)}</li><li>New strategy, restructuring, product or service</li><li>Major incident, breach, loss or regulatory action</li><li>New system, AI model, outsourcing or material process change</li></ul></div>
+      <div class="output-section"><h4>Coverage guardrail</h4><ul><li>Do not audit every unit every year; prioritise based on risk, change and assurance gaps.</li><li>Show what is covered by internal audit, compliance, risk, external assurance and management monitoring.</li><li>Escalate high-risk areas with no recent assurance coverage.</li></ul></div>
+    </div>
+    <div class="matrix" style="margin-top:14px"><table class="universe-table"><thead><tr><th>Quarter</th><th>Candidate audit</th><th>Category</th><th>Why prioritised</th></tr></thead><tbody>${cadence}</tbody></table></div>
+    <p class="universe-note"><strong>Planning note:</strong> This is a draft prioritisation view, not an approved audit plan. Final selection should consider mandate, stakeholder request, available skills, budget, prior assurance coverage, independence, data availability and local requirements.</p>`;
+  const out = $('universeOutput');
+  if (out) out.innerHTML = html;
+}
+function copyUniverseOutput() {
+  const box = $('universeOutput');
+  if (!box) return;
+  navigator.clipboard?.writeText(box.innerText || '').then(()=>showToast('Audit universe view copied')).catch(()=>showToast('Copy not available'));
+}
+
 function renderWorkbench() {
   const journeys = $('journeyGrid');
   if (journeys && !journeys.dataset.rendered) {
@@ -1357,10 +1789,138 @@ function updateRefreshScore() {
   if ($('refreshScoreFill')) $('refreshScoreFill').style.width = `${checks.length ? (done / checks.length * 100) : 0}%`;
 }
 
+
+function renderDomainUniverse() {
+  const signalBox = $('domainSignalGrid');
+  if (signalBox && !signalBox.dataset.rendered) {
+    signalBox.innerHTML = domainSignalDefinitions.map(s => `<label class="domain-signal"><input type="checkbox" data-domain-signal="${esc(s.id)}"><span><strong>${esc(s.label)}</strong><span>${esc(s.hint)}</span></span></label>`).join('');
+    signalBox.addEventListener('change', generateDomainUniverse);
+    signalBox.dataset.rendered = '1';
+  }
+  const wf = $('domainWorkflowCode');
+  if (wf && !wf.dataset.rendered) { wf.textContent = domainWorkflowTemplate; wf.dataset.rendered = '1'; }
+  bindAutoUpdate(['domainInput','domainIndustry','domainCountry','domainSize','domainExposure','domainCapacity'], generateDomainUniverse);
+  const gen = $('generateDomainUniverse');
+  if (gen && !gen.dataset.bound) { gen.addEventListener('click', generateDomainUniverse); gen.dataset.bound = '1'; }
+  const copy = $('copyDomainUniverse');
+  if (copy && !copy.dataset.bound) { copy.addEventListener('click', copyDomainUniverseOutput); copy.dataset.bound = '1'; }
+  const dl = $('downloadDomainUniverseJson');
+  if (dl && !dl.dataset.bound) { dl.addEventListener('click', downloadDomainUniverseJson); dl.dataset.bound = '1'; }
+  const copyWf = $('copyDomainWorkflow');
+  if (copyWf && !copyWf.dataset.bound) { copyWf.addEventListener('click', () => navigator.clipboard?.writeText(domainWorkflowTemplate).then(()=>showToast('Workflow copied')).catch(()=>showToast('Copy not available'))); copyWf.dataset.bound = '1'; }
+  const copySchema = $('copyDomainSchema');
+  if (copySchema && !copySchema.dataset.bound) { copySchema.addEventListener('click', () => navigator.clipboard?.writeText(domainJsonSchema).then(()=>showToast('JSON schema copied')).catch(()=>showToast('Copy not available'))); copySchema.dataset.bound = '1'; }
+  generateDomainUniverse();
+}
+function domainSignalSelections() {
+  return [...document.querySelectorAll('[data-domain-signal]:checked')].map(c => c.getAttribute('data-domain-signal'));
+}
+function domainCandidateAudits(industry, selectedSignals, capacityText, exposure) {
+  const names = [...(domainIndustryAuditMap[industry] || domainIndustryAuditMap['General organisation'])];
+  selectedSignals.forEach(id => {
+    const signal = domainSignalDefinitions.find(s => s.id === id);
+    if (signal) names.push(...signal.audits);
+  });
+  if (/critical infrastructure|regulated/i.test(exposure || '')) names.push('Business Continuity / Resilience Audit','Cybersecurity Audit','Compliance & Regulatory Audit');
+  if (/digital/i.test(exposure || '')) names.push('Identity & Privileged Access Management Audit','Privacy & Data Protection Audit','Cybersecurity Audit');
+  const seen = new Set();
+  const selected = [];
+  names.forEach(name => {
+    const a = findAuditByLooseTitle(name);
+    if (a && !seen.has(a.id)) { seen.add(a.id); selected.push(a); }
+  });
+  audits.filter(a => /High/i.test(a.relevance)).forEach(a => { if (selected.length < 6 && !seen.has(a.id)) { seen.add(a.id); selected.push(a); } });
+  const cap = parseInt(capacityText, 10) || 12;
+  return selected.slice(0, cap);
+}
+function domainProfileObject() {
+  const selectedIds = domainSignalSelections();
+  return {
+    domain: ($('domainInput')?.value || 'example.com').trim(),
+    industry: $('domainIndustry')?.value || 'General organisation',
+    jurisdiction: ($('domainCountry')?.value || 'Global / to be confirmed').trim(),
+    size: $('domainSize')?.value || 'Unknown',
+    exposure: $('domainExposure')?.value || 'Moderate public-facing exposure',
+    capacity: $('domainCapacity')?.value || '12 standard engagements',
+    signals: domainSignalDefinitions.filter(s => selectedIds.includes(s.id))
+  };
+}
+function generateDomainUniverse() {
+  const p = domainProfileObject();
+  const selected = domainCandidateAudits(p.industry, p.signals.map(s=>s.id), p.capacity, p.exposure);
+  const domains = {};
+  selected.forEach(a => { domains[a.category] = (domains[a.category] || 0) + 1; });
+  const sourcePages = [
+    ['Homepage / about page', 'Confirm business model, geographies, products, services and operating structure.'],
+    ['Privacy notice', 'Confirm personal-data processing, retention, lawful basis, transfer and breach commitments.'],
+    ['Terms / legal pages', 'Confirm customer obligations, disclaimers, complaints and regulatory commitments.'],
+    ['Security / trust page', 'Confirm security claims, certifications, cloud reliance and third-party assurance.'],
+    ['Investor / annual report / ESG pages', 'Confirm financial, governance, strategy, sustainability and risk disclosures.']
+  ];
+  const domainRows = Object.entries(domains).sort((a,b)=>b[1]-a[1]).map(([k,v]) => `<li>${esc(k)} — ${v} candidate audit(s)</li>`).join('') || '<li>General governance, risk, compliance, technology and operations coverage.</li>';
+  const planRows = selected.map((a,i) => {
+    const priority = i < 4 ? 'Priority 1' : i < 8 ? 'Priority 2' : 'Priority 3';
+    const signalBasis = p.signals.find(s => s.audits.some(n => findAuditByLooseTitle(n)?.id === a.id));
+    const why = signalBasis ? `Public signal: ${signalBasis.label}` : `Industry baseline for ${p.industry}`;
+    return `<tr><td>${esc(priority)}</td><td>${a.emoji} <strong>${esc(a.title)}</strong></td><td>${esc(a.category)}</td><td>${esc(why)}</td></tr>`;
+  }).join('');
+  const confidence = Math.min(95, 35 + (p.signals.length * 6) + (/unknown/i.test(p.size) ? 0 : 8) + (/Global \/ to be confirmed/i.test(p.jurisdiction) ? 0 : 8));
+  const html = `<h3>🌐 Draft domain audit universe — ${esc(p.domain || 'Domain not entered')}</h3>
+    <div class="domain-mini-grid">
+      <div class="domain-mini"><span>Industry</span><strong>${esc(p.industry)}</strong></div>
+      <div class="domain-mini"><span>Jurisdiction</span><strong>${esc(p.jurisdiction)}</strong></div>
+      <div class="domain-mini"><span>Size</span><strong>${esc(p.size)}</strong></div>
+      <div class="domain-mini"><span>Signal confidence</span><strong>${confidence}% preliminary</strong></div>
+    </div>
+    <div class="output-grid">
+      <div class="output-section"><h4>Detected public signals</h4><ul>${p.signals.length ? p.signals.map(s=>`<li>${esc(s.label)}</li>`).join('') : '<li>No public signals selected yet. Select signals to improve the output.</li>'}</ul></div>
+      <div class="output-section"><h4>Likely audit universe domains</h4><ul>${domainRows}</ul></div>
+      <div class="output-section"><h4>Public sources to scan / evidence to capture</h4><ul>${sourcePages.map(x=>`<li><strong>${esc(x[0])}:</strong> ${esc(x[1])}</li>`).join('')}</ul></div>
+      <div class="output-section"><h4>Validation questions before use</h4><ul><li>Does the public website reflect the actual operating model?</li><li>Which entities, systems, locations and vendors are missing from public information?</li><li>Which regulatory obligations apply in ${esc(p.jurisdiction)}?</li><li>What recent incidents, strategy changes or transformation programmes should change priority?</li></ul></div>
+      <div class="output-section"><h4>Out-of-scope for this generator</h4><ul><li>No vulnerability or penetration testing.</li><li>No private system access or login testing.</li><li>No legal conclusion, audit opinion or certification claim.</li><li>No assurance over completeness until management validates the universe.</li></ul></div>
+      <div class="output-section"><h4>Recommended next step</h4><ul><li>Export this view, validate with risk/compliance/technology/process owners, then convert priority areas into the annual or rolling audit plan.</li><li>Keep source pages and review date as audit-universe evidence.</li></ul></div>
+    </div>
+    <div class="matrix" style="margin-top:14px"><table class="universe-table"><thead><tr><th>Priority</th><th>Candidate audit</th><th>Category</th><th>Why suggested</th></tr></thead><tbody>${planRows}</tbody></table></div>
+    <p class="universe-note"><strong>Important:</strong> This is a public-signal planning view. It should be treated as a draft input into audit planning, not a complete company risk assessment.</p>`;
+  const out = $('domainUniverseOutput');
+  if (out) out.innerHTML = html;
+}
+function domainUniverseJson() {
+  const p = domainProfileObject();
+  const selected = domainCandidateAudits(p.industry, p.signals.map(s=>s.id), p.capacity, p.exposure);
+  return {
+    generated_at_local: new Date().toISOString(),
+    generator: 'Global Audit Intelligence Hub — Domain-to-Audit-Universe Generator',
+    author_owner: 'Abdullah Zulkifli',
+    boundary: 'Public-signal planning aid only. No intrusive testing, no audit opinion, no certification.',
+    profile: {domain:p.domain, industry:p.industry, jurisdiction:p.jurisdiction, size:p.size, exposure:p.exposure, capacity:p.capacity},
+    public_signals: p.signals.map(s => ({id:s.id, label:s.label, hint:s.hint})),
+    candidate_audits: selected.map(a => ({id:a.id, title:a.title, category:a.category, relevance:a.relevance, source_ids:a.sources})),
+    validation_required: ['Confirm actual operating model and entity structure','Confirm systems, vendors, products and locations','Confirm applicable laws, regulations and sector rules','Confirm prior assurance coverage, incidents and management priorities']
+  };
+}
+function copyDomainUniverseOutput() {
+  const box = $('domainUniverseOutput');
+  if (!box) return;
+  navigator.clipboard?.writeText(box.innerText || '').then(()=>showToast('Domain audit universe copied')).catch(()=>showToast('Copy not available'));
+}
+function downloadDomainUniverseJson() {
+  const data = JSON.stringify(domainUniverseJson(), null, 2);
+  const blob = new Blob([data], {type:'application/json;charset=utf-8'});
+  const domain = (domainProfileObject().domain || 'domain').replace(/[^a-z0-9.-]+/gi,'-');
+  const link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = `domain-audit-universe-${domain}.json`;
+  link.click();
+  URL.revokeObjectURL(link.href);
+  showToast('Domain JSON downloaded');
+}
+
 function showTab(tab) {
   document.querySelectorAll('.tab').forEach(t => t.classList.toggle('active', t.dataset.tab === tab));
   document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
   $('panel-' + tab).classList.add('active');
+  if (tab === 'domain-universe') renderDomainUniverse();
   if (tab === 'workbench') renderWorkbench();
   if (tab === 'matrix') renderMatrix();
   if (tab === 'lifecycle') renderLifecycle();
@@ -1414,7 +1974,7 @@ $('copyBtn').addEventListener('click', copyBrief); $('exportBtn').addEventListen
 $('themeBtn').addEventListener('click', () => { state.theme = state.theme === 'light' ? 'dark' : 'light'; document.documentElement.setAttribute('data-theme', state.theme); safeStorage.set('aih-theme', state.theme); });
 document.addEventListener('keydown', e => { if (e.key === 'Escape') { closeDrawer(); $('compareModal').classList.remove('active'); } });
 
-renderStats(); renderFilters(); renderAudits(); renderWorkbench(); renderMatrix(); renderLifecycle(); renderSources(); renderAIToolkit(); renderAIEnhancements(); renderEvergreen(); updateCompare();
+renderStats(); renderFilters(); renderAudits(); renderAuditUniverse(); renderDomainUniverse(); renderWorkbench(); renderMatrix(); renderLifecycle(); renderSources(); renderAIToolkit(); renderAIEnhancements(); renderEvergreen(); updateCompare();
 </script>
 </body>
 </html>
